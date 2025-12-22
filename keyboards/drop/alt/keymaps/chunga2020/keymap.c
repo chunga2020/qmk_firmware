@@ -18,3 +18,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                            EE_CLR,                             KC_APP,  _______, KC_HOME, KC_PGDN, KC_END
     )
 };
+
+/* From Linux: pressing both Shift keys together to get Caps Lock behavior;
+ * might not need to use Caps Lock very often, hence the decision to get rid of
+ * its dedicated key, but it *is* useful sometimes and better than having to do
+ * hand dances with the Shift keys */
+const uint16_t PROGMEM both_shifts_combo[] = {KC_LSFT, KC_RSFT, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(both_shifts_combo, KC_CAPS)
+};
