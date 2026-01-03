@@ -44,6 +44,13 @@ combo_t key_combos[] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     switch (keycode) {
+    case TG(2):
+        if (IS_LAYER_OFF(2)) {
+            rgb_matrix_set_color_all(0xff, 0x00, 0x00);
+        } else {
+            rgb_matrix_set_color_all(0xff, 0xff, 0xff);
+        }
+        return true;
     case RCTL(KC_B):
         if (record->event.pressed && IS_LAYER_ON(2)) {
             tap_code16(KC_LEFT);
