@@ -47,21 +47,25 @@ uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     mod_state = get_mods();
-    switch (keycode) {
-    case KC_F:
-        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_RIGHT);
-    case KC_B:
-        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_LEFT);
-    case KC_N:
-        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DOWN);
-    case KC_P:
-        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_UP);
+    if (mod_state & MOD_MASK_CTRL) {
+        switch (keycode) {
+        case KC_F:
+            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_RIGHT);
+        case KC_B:
+            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_LEFT);
+        case KC_N:
+            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DOWN);
+        case KC_P:
+            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_UP);
 
-    case KC_A:
-        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_HOME);
-    case KC_E:
-        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_END);
-    default:
-        return true;            /* process all other keycodes normally */
+        case KC_A:
+            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_HOME);
+        case KC_E:
+            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_END);
+
+        default:
+            return true;            /* process all other keycodes normally */
+        }
     }
+    return true;
 }
