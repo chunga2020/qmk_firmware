@@ -50,6 +50,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     switch (keycode) {
     case KC_F:
         return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_RIGHT);
+    case KC_B:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_LEFT);
+    case KC_N:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DOWN);
+    case KC_P:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_UP);
     default:
         return true;            /* process all other keycodes normally */
     }
