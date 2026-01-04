@@ -56,6 +56,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DOWN);
     case KC_P:
         return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_UP);
+
+    case KC_A:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_HOME);
+    case KC_E:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_END);
     default:
         return true;            /* process all other keycodes normally */
     }
