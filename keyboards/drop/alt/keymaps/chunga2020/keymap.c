@@ -1,6 +1,7 @@
 // Copyright 2023 Massdrop, Inc.
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
+#include "emacs_editing.h"
 
 /*
  * Layer explanation:
@@ -48,21 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     mod_state = get_mods();
     switch (keycode) {
     case KC_F:
-        if (IS_LAYER_ON(2)) {
-            if (record->event.pressed) {
-                if (mod_state & MOD_MASK_CTRL) {
-                    /* Temporarily canceling both Ctrl keys so Ctrl isn’t applied
-                     * to F, i.e., doesn’t send C-f to host */
-                    del_mods(MOD_MASK_CTRL);
-                    tap_code16(KC_RIGHT);
-
-                    /* Reset the state so we can keep using the Ctrl key */
-                    set_mods(mod_state);
-                    return false;
-                }
-            }
-        }
-        return true;
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_RIGHT);
     default:
         return true;            /* process all other keycodes normally */
     }
