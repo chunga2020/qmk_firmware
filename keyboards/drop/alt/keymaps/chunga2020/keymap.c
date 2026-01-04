@@ -67,5 +67,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             return true;            /* process all other keycodes normally */
         }
     }
+    if (mod_state & MOD_MASK_ALT) {
+        switch (keycode) {
+        case KC_F:
+            return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_RIGHT));
+        case KC_B:
+            return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_LEFT));
+        }
+    }
     return true;
 }
