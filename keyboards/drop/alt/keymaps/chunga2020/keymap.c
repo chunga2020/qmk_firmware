@@ -75,6 +75,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_RIGHT));
         case KC_B:
             return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_LEFT));
+        default:
+            return true;
         }
     }
     return true;
