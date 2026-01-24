@@ -42,6 +42,10 @@ combo_t key_combos[] = {
     COMBO(both_shifts_combo, KC_CAPS)
 };
 
+uint16_t fwd_del_word[] = {C(S(KC_RIGHT)), C(KC_BSPC)};
+uint16_t del_to_eol[] = {S(KC_END), KC_BSPC};
+uint16_t insert_newline_before[] = {KC_ENT, KC_UP};
+
 /* binary representation of the active modifier keys */
 uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
@@ -65,6 +69,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
         case KC_D:
             return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DEL);
+        case KC_K:
+            return send_sequence(keycode, record, 2, MOD_MASK_CTRL, del_to_eol, 2);
+        case KC_O:
+            return send_sequence(keycode, record, 2, MOD_MASK_CTRL,
+                                 insert_newline_before, 2);
         default:
             return true;            /* process all other keycodes normally */
         }
@@ -75,6 +84,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_RIGHT));
         case KC_B:
             return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_LEFT));
+
+        case KC_D:
+            return send_sequence(keycode, record, 2, MOD_MASK_ALT,
+                                 fwd_del_word, 2);
+        default:
+            return true;
+        }
+    }
         default:
             return true;
         }
