@@ -51,59 +51,54 @@ uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     mod_state = get_mods();
-    if (mod_state == (MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT))) {
-        dprintf("mod state: %d\n", mod_state);
-        switch (keycode) {
-        case KC_COMMA:
-            return process_motion(keycode, record, 2,
-                                  MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT), C(KC_HOME));
-        case KC_DOT:
-            return process_motion(keycode, record, 2,
-                                  MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT), C(KC_END));
-        default:
-            return true;
-        }
-    }
-    if (mod_state & MOD_MASK_CTRL) {
-        switch (keycode) {
-        case KC_F:
+
+    switch (keycode) {
+    case KC_F:
+        if (mod_state & MOD_MASK_CTRL) {
             return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_RIGHT);
-        case KC_B:
-            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_LEFT);
-        case KC_N:
-            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DOWN);
-        case KC_P:
-            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_UP);
-
-        case KC_A:
-            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_HOME);
-        case KC_E:
-            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_END);
-
-        case KC_D:
-            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DEL);
-        case KC_K:
-            return send_sequence(keycode, record, 2, MOD_MASK_CTRL, del_to_eol, 2);
-        case KC_O:
-            return send_sequence(keycode, record, 2, MOD_MASK_CTRL,
-                                 insert_newline_before, 2);
-        default:
-            return true;            /* process all other keycodes normally */
         }
-    }
-    if (mod_state & MOD_MASK_ALT) {
-        switch (keycode) {
-        case KC_F:
-            return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_RIGHT));
-        case KC_B:
+        if (mod_state & MOD_MASK_ALT) {
+            return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_RGHT));
+        }
+        break;
+    case KC_B:
+        if (mod_state & MOD_MASK_CTRL) {
+            return process_motion(keycode, record, 2, MOD_MASK_ALT, KC_LEFT);
+        }
+        if (mod_state & MOD_MASK_ALT) {
             return process_motion(keycode, record, 2, MOD_MASK_ALT, C(KC_LEFT));
+        }
+        break;
+    case KC_N:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DOWN);
+    case KC_P:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_UP);
 
-        case KC_D:
+    case KC_A:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_HOME);
+    case KC_E:
+        return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_END);
+
+    case KC_D:
+        if (mod_state & MOD_MASK_CTRL) {
+            return process_motion(keycode, record, 2, MOD_MASK_CTRL, KC_DEL);
+        }
+        if (mod_state & MOD_MASK_ALT) {
             return send_sequence(keycode, record, 2, MOD_MASK_ALT,
                                  fwd_del_word, 2);
-        default:
-            return true;
         }
+        break;
+    case KC_K:
+        return send_sequence(keycode, record, 2, MOD_MASK_CTRL, del_to_eol, 2);
+    case KC_O:
+        return send_sequence(keycode, record, 2, MOD_MASK_CTRL,
+                             insert_newline_before, 2);
+    case KC_COMMA:
+        return process_motion(keycode, record, 2,
+                              MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT), C(KC_HOME));
+    case KC_DOT:
+        return process_motion(keycode, record, 2,
+                              MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT), C(KC_END));
     }
     return true;
 }
