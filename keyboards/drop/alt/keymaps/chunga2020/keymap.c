@@ -51,6 +51,19 @@ uint8_t mod_state;
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     mod_state = get_mods();
+    if (mod_state == (MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT))) {
+        dprintf("mod state: %d\n", mod_state);
+        switch (keycode) {
+        case KC_COMMA:
+            return process_motion(keycode, record, 2,
+                                  MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT), C(KC_HOME));
+        case KC_DOT:
+            return process_motion(keycode, record, 2,
+                                  MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT), C(KC_END));
+        default:
+            return true;
+        }
+    }
     if (mod_state & MOD_MASK_CTRL) {
         switch (keycode) {
         case KC_F:
@@ -88,10 +101,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         case KC_D:
             return send_sequence(keycode, record, 2, MOD_MASK_ALT,
                                  fwd_del_word, 2);
-        default:
-            return true;
-        }
-    }
         default:
             return true;
         }
