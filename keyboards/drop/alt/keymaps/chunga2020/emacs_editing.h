@@ -16,9 +16,8 @@
  * required_mods: the modifier(s) that must be active to trigger this action
  * to_send: the keycode to send
  */
-bool process_motion(uint16_t keycode, keyrecord_t *record,
-                    layer_state_t accepted_layer_state, uint8_t required_mods,
-                    uint16_t to_send);
+bool process_motion(keyrecord_t *record, layer_state_t accepted_layer_state,
+                    uint8_t required_mods, uint16_t to_send);
 
 /*
  * Send a sequence of keypresses from a single physical keypress.
@@ -33,8 +32,6 @@ bool process_motion(uint16_t keycode, keyrecord_t *record,
  * sent one after another.
  * num_keys: the number of keys in the sequence, for loop termination
  */
-bool send_sequence(uint16_t keycode, keyrecord_t *record,
-                   layer_state_t accepted_layer_state, uint8_t required_mods,
-                   uint16_t *sequence, uint8_t num_keys);
-
+bool send_sequence(keyrecord_t *record, layer_state_t accepted_layer_state,
+                   uint8_t required_mods, uint16_t *sequence, uint8_t num_keys);
 #endif
