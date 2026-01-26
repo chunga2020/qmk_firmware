@@ -44,7 +44,7 @@ combo_t key_combos[] = {
 
 uint16_t fwd_del_word[] = {C(S(KC_RIGHT)), C(KC_BSPC)};
 uint16_t del_to_eol[] = {S(KC_END), KC_BSPC};
-uint16_t insert_newline_before[] = {KC_ENT, KC_UP};
+uint16_t insert_newline_before[] = {KC_ENT, KC_LEFT};
 
 /* binary representation of the active modifier keys */
 uint8_t mod_state;
