@@ -89,6 +89,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         return send_sequence(record, 2, MOD_MASK_CTRL, insert_newline_before, 2);
     case KC_P:
         return process_motion(record, 2, MOD_MASK_CTRL, KC_UP);
+    case KC_W:
+        if (mod_state == MOD_BIT(KC_RCTL)) {
+            return process_motion(record, 2, MOD_MASK_CTRL, C(KC_X));
+        }
+        if (mod_state == MOD_BIT(KC_RALT)) {
+            return process_motion(record, 2, MOD_MASK_ALT, C(KC_C));
+        }
+        break;
+    case KC_Y:
+        if (mod_state == MOD_BIT(KC_LCTL)) {
+            return process_motion(record, 2, MOD_MASK_CTRL, C(KC_V));
+        }
+        break;
+
     case KC_COMMA:
         return process_motion(record, 2, MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT),
                               C(KC_HOME));
