@@ -53,14 +53,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     mod_state = get_mods();
 
     switch (keycode) {
-    case KC_F:
-        if (mod_state & MOD_MASK_CTRL) {
-            return process_motion(record, 2, MOD_MASK_CTRL, KC_RIGHT);
-        }
-        if (mod_state & MOD_MASK_ALT) {
-            return process_motion(record, 2, MOD_MASK_ALT, C(KC_RGHT));
-        }
-        break;
+    case KC_A:
+        return process_motion(record, 2, MOD_MASK_CTRL, KC_HOME);
     case KC_B:
         if (mod_state & MOD_MASK_CTRL) {
             return process_motion(record, 2, MOD_MASK_CTRL, KC_LEFT);
@@ -69,16 +63,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             return process_motion(record, 2, MOD_MASK_ALT, C(KC_LEFT));
         }
         break;
-    case KC_N:
-        return process_motion(record, 2, MOD_MASK_CTRL, KC_DOWN);
-    case KC_P:
-        return process_motion(record, 2, MOD_MASK_CTRL, KC_UP);
-
-    case KC_A:
-        return process_motion(record, 2, MOD_MASK_CTRL, KC_HOME);
-    case KC_E:
-        return process_motion(record, 2, MOD_MASK_CTRL, KC_END);
-
     case KC_D:
         if (mod_state & MOD_MASK_CTRL) {
             return process_motion(record, 2, MOD_MASK_CTRL, KC_DEL);
@@ -87,10 +71,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
             return send_sequence(record, 2, MOD_MASK_ALT, fwd_del_word, 2);
         }
         break;
+    case KC_E:
+        return process_motion(record, 2, MOD_MASK_CTRL, KC_END);
+    case KC_F:
+        if (mod_state & MOD_MASK_CTRL) {
+            return process_motion(record, 2, MOD_MASK_CTRL, KC_RIGHT);
+        }
+        if (mod_state & MOD_MASK_ALT) {
+            return process_motion(record, 2, MOD_MASK_ALT, C(KC_RGHT));
+        }
+        break;
     case KC_K:
         return send_sequence(record, 2, MOD_MASK_CTRL, del_to_eol, 2);
+    case KC_N:
+        return process_motion(record, 2, MOD_MASK_CTRL, KC_DOWN);
     case KC_O:
         return send_sequence(record, 2, MOD_MASK_CTRL, insert_newline_before, 2);
+    case KC_P:
+        return process_motion(record, 2, MOD_MASK_CTRL, KC_UP);
     case KC_COMMA:
         return process_motion(record, 2, MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT),
                               C(KC_HOME));
