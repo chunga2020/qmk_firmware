@@ -104,11 +104,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         break;
 
     case KC_COMMA:
-        return process_motion(record, 2, MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT),
-                              C(KC_HOME));
+        if (mod_state == (MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT))) {
+            return process_motion(record, 2, MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT),
+                                  C(KC_HOME));
+        }
+        return true;
     case KC_DOT:
-        return process_motion(record, 2, MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT),
-                              C(KC_END));
+        if (mod_state == (MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT))) {
+            return process_motion(record, 2, MOD_BIT(KC_LALT)|MOD_BIT(KC_LSFT),
+                                  C(KC_END));
+        }
+        return true;
     }
     return true;
 }
